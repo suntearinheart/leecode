@@ -102,3 +102,35 @@ public:
         return ret1;
     }
 };
+
+https://leetcode.com/problems/longest-substring-without-repeating-characters/
+
+big(N*N)
+class Solution {
+public:
+    int lengthOfLongestSubstring(string s) {
+        int maxlen = s.length()?1:0;
+        int startoff = 0;
+        int endoff = 1;
+        map<char,int> map_tt;
+        for(; endoff < s.length();endoff++) {
+            // find the duplicated characters
+    //        for(int index = startoff ; index < endoff;index++){
+    //            if (s[endoff] == s[index]) {
+    //                startoff = index + 1;
+    //            } 
+    //        }
+    // using 
+            
+            if (map_tt.find(s[startoff])!=map_tt.end()){
+                startoff = map_tt.find(s[startoff])->second + 1;
+            } else {
+                map_tt.insert(std::pair<char,int>(s[startoff],startoff));
+            }
+            if (endoff - startoff + 1> maxlen) {
+                maxlen = endoff - startoff + 1;
+            }
+        }
+        return maxlen;
+    }
+};
