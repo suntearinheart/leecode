@@ -134,3 +134,27 @@ public:
         return maxlen;
     }
 };
+
+class Solution {
+public:
+    int lengthOfLongestSubstring(string s) {
+        int maxlen = 0;
+        int startoff = 0;
+        map<char,int> map_tt;
+        if (s.length()== 1)
+            return 1;
+        
+        for(int endoff = 0; endoff < s.length();endoff++) {
+            if (map_tt.find(s[endoff])!=map_tt.end()){
+                int offset = map_tt.find(s[endoff])->second + 1;
+                if (offset > startoff )
+                    startoff = offset;
+            } 
+            if (endoff - startoff + 1 > maxlen) {
+                maxlen = endoff - startoff + 1;
+            }  
+            map_tt[s[endoff]] = endoff;
+        }
+        return maxlen;
+    }
+};
