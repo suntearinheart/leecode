@@ -42,3 +42,63 @@ public:
      return pairs;       
     }
 };
+
+https://leetcode.com/problems/add-two-numbers/submissions/
+
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
+        // make sure l1 and l2 can't empty
+        ListNode* ret1 = l1;
+        ListNode* ret2 = l2;
+        ListNode* ret1pre;
+        ListNode* ret2pre;        
+        int add1 =0;
+        int index = 0;
+        int index1 = 0;
+        while (l1 || l2) {
+            int a1 = l1? l1->val:0;
+            int a2 = l2? l2->val:0;
+            int sum = a1 + a2 + add1;
+            add1 = sum/10;
+            if(l1) {
+                l1->val = sum%10;
+                ret1pre = l1;
+                l1 = l1->next;
+                index++;
+            } 
+            if(l2) {
+                l2->val = sum%10;
+                ret2pre = l2;
+                l2 = l2->next; 
+                index1++;
+            }      
+        }
+
+        if (index <= index1) {
+            if (add1) {
+                ret2pre->next = new ListNode();
+                ret2pre->next->val = 1;
+                ret2pre->next->next = NULL;
+            }
+            ret1 = ret2;
+        } else {
+               if (add1) {
+                ret1pre->next = new ListNode();
+                ret1pre->next->val = 1;
+                ret1pre->next->next = NULL;
+            }         
+        }
+        return ret1;
+    }
+};
