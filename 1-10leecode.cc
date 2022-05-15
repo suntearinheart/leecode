@@ -485,3 +485,86 @@ class Solution {
             return maxArea;
         }
 };
+
+
+https://leetcode.com/problems/integer-to-roman/submissions/
+
+
+class Solution {
+public:
+    string intToRoman(int num) {
+        string ss;
+        int a1 = num/1000;
+        a1 = a1%10;
+        while(a1) {
+            ss += 'M';
+            a1--;
+        }
+        a1 = num/100;
+        a1 = a1%10;
+        while(a1) {
+            if (a1 == 9) {
+              ss += 'C';
+              ss += 'M';
+              break;  
+            }
+            if (a1 == 4) {
+              ss += 'C';
+              ss += 'D';
+              break;  
+            }            
+            if (a1 >= 5) {
+              ss += 'D';
+              a1 = a1 -5;
+              continue;  
+            }
+            ss += 'C';
+            a1--;
+        }
+        a1 = num/10;
+        a1 = a1%10;
+        while(a1) {
+            if (a1 == 9) {
+              ss += 'X';
+              ss += 'C';
+              break;  
+            }
+            if (a1 == 4) {
+              ss += 'X';
+              ss += 'L';
+              break;  
+            }            
+            if (a1 >= 5) {
+              ss += 'L';
+              a1 = a1 -5;
+              continue;  
+            }
+            ss += 'X';
+            a1--;
+        }        
+        a1 = num;
+        a1 = a1%10;
+        while(a1) {
+            if (a1 == 9) {
+              ss += 'I';
+              ss += 'X';
+              break;  
+            }
+            if (a1 == 4) {
+              ss += 'I';
+              ss += 'V';
+              break;  
+            }            
+            if (a1 >= 5) {
+              ss += 'V';
+              a1 = a1 -5;
+              continue;  
+            }
+            ss += 'I';
+            a1--;
+        } 
+        return ss;
+    }
+
+    
+};
