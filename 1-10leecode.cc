@@ -568,3 +568,25 @@ public:
 
     
 };
+
+
+https://leetcode.com/problems/longest-common-prefix/submissions/
+
+class Solution {
+public:
+    string longestCommonPrefix(vector<string>& strs) {
+        int offset = 0;
+        while (true) {
+         for(int index = 0; index < strs.size(); index++) {
+            if (strs[index].size() < (offset+1))
+                return strs[index].substr(0,offset);
+            if(index > 0 && (strs[index][offset] != strs[index-1][offset]))
+                return strs[index].substr(0,offset);
+         }           
+            offset++;
+        }
+
+        return strs[0].substr(0,offset); 
+        
+    }
+};
