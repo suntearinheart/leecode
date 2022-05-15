@@ -234,3 +234,60 @@ public:
         return r-l+1;
     }
 };
+
+
+https://leetcode.com/problems/zigzag-conversion/submissions/
+
+class Solution {
+public:
+    string convert(string s, int numRows) {
+        vector<string> aa(numRows);
+        int rowindex2 = 0;
+        if (numRows == 1)
+            return s;
+
+        for(int i = 0; i<s.size(); i++) {
+           int temp;
+           rowindex2 = (rowindex2%(2*numRows-2));
+           if (rowindex2 < numRows) {
+              temp = rowindex2;
+           } else {
+              temp = 2*numRows-2 - rowindex2;
+           }           
+           aa[temp]+= s[i];  
+           rowindex2 ++;
+        }
+        string tt;
+        int index = 0;
+        while(index < numRows) {
+            tt += aa[index];
+            index++;
+        }
+        return tt;
+    }
+};
+
+https://leetcode.com/problems/reverse-integer/submissions/
+
+class Solution {
+public:
+    int reverse(int x) {
+        int a = x%10;
+        while(true) {
+           x = x/10;
+           if (x) {
+               if ((INT_MAX/10)  < a ||(INT_MIN/10)  > a)
+                   return 0;
+               a= a*10 + x%10;
+           } else {
+               break;
+           } 
+        }
+        if (x < 0) {
+            return (0-a);
+        } else {
+            return a;
+        }
+        
+    }
+};
