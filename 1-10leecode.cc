@@ -385,3 +385,103 @@ public:
         }
     }
 };
+// half find
+class Solution {
+public:
+bool isPalindrome(int x) {
+int remdigit,palli=0;
+if(x<0 || (x%10==0 && x!=0))
+{
+return false;
+}
+while(x>palli)
+{
+remdigit = x % 10;
+palli = palli*10 + remdigit;
+x = x/10;
+}
+return x == palli || x == palli/10;
+}
+};
+
+
+https://leetcode.com/problems/regular-expression-matching/submissions/
+
+struct Solve {
+    
+    string &s, &p;
+    
+    Solve(string &s, string &p) : s(s), p(p) {}
+    
+    bool solve(int n, int m) {
+        
+        if (n == 0) {
+            while (m > 0 && p[m-1] == '*') {
+                m -= 2;
+            }
+            if (m == 0) return true;
+            return false;
+        }
+        if (m == 0) return false;
+        
+        if (p[m-1] == '*') {
+            if (p[m-2] == s[n-1] || p[m-2] == '.') {
+                return solve(n-1, m) || solve(n, m-2);
+            }
+            return solve(n, m-2);
+        }
+        if (p[m-1] == '.' || p[m-1] == s[n-1]) {
+            return solve(n-1, m-1);
+        }
+        
+        return false;
+    }
+    
+    bool solve() {
+        return solve(s.size(), p.size());
+    }
+};
+
+class Solution {
+public:
+    bool isMatch(string s, string p) {
+        
+        return Solve(s,p).solve();
+    }
+};
+
+
+https://leetcode.com/problems/container-with-most-water/
+
+class Solution {
+    public:
+        int maxArea(vector<int>& height) {
+
+			// First Pointer At Extreme Left
+            int i=0;
+
+			// Second Pointer At Extreme Right
+			int j = height.size()-1;
+
+            int maxArea =0;
+
+			// While First Pointer Is Less Than Second Pointer
+            while(i<j){
+				
+				// Only Change Max Area If Current Area is Greater
+                maxArea = max(min(height[i],height[j])*(j-i),maxArea);
+
+				// Increment First Pointer
+                if(height[i]<height[j]){
+                    i++;
+                }
+				// Decrement Second Pointer
+                else{
+                    j--;
+                }
+                
+            }
+
+            return maxArea;
+        }
+};
