@@ -158,3 +158,48 @@ public:
         return maxlen;
     }
 };
+
+https://leetcode.com/problems/median-of-two-sorted-arrays/
+
+class Solution {
+public:
+    double findMedianSortedArrays(vector<int>& nums1, vector<int>& nums2) {
+        vector <int> temp;
+        int index = 0;
+        int index2 = 0;
+        int numlen1 = nums1.size();
+        int numlen2 = nums2.size();
+        while (true) {
+            if ((index < numlen1) && (index2 < numlen2)) {
+                if (nums1[index] <= nums2[index2]) {
+                    temp.push_back(nums1[index]);
+                    index++;   
+                } else {
+                    temp.push_back(nums2[index2]);
+                    index2++;               
+                }               
+            } else {
+                break;
+            }
+        }
+        while (index < numlen1) {
+           temp.push_back(nums1[index++]) ;
+        }
+         while (index2 < numlen2) {
+
+           temp.push_back(nums2[index2++]) ;
+        }
+        int dd = temp[(numlen1+numlen2)/2];
+        int dd1;
+        if ((numlen1+numlen2)%2 == 1) {
+            dd1 = dd;
+        } else {
+             dd1 = temp[(numlen1+numlen2)/2 - 1];
+        }
+
+        return (dd+ dd1)/2.0;
+    }
+};
+
+https://leetcode.com/problems/longest-palindromic-substring/
+
