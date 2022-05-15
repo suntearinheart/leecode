@@ -203,3 +203,34 @@ public:
 
 https://leetcode.com/problems/longest-palindromic-substring/
 
+class Solution {
+public:
+    string longestPalindrome(string s) {
+        int maxlen = 0;
+        int lindex = 0;
+        int slen = s.length();
+        for(int i = 0; i< slen;i++) {
+            int len1 = getLongestPalindromic(s,slen,i,i);
+            int len2 = getLongestPalindromic(s,slen,i,i+1);
+             if(len1 > maxlen) {
+                maxlen = len1;
+                lindex = i - len1/2;
+            } 
+            if(len2 > maxlen) {
+                maxlen = len2;
+                lindex = i + 1 - len2/2;
+            }            
+        }
+        
+        return s.substr (lindex,maxlen);
+    }
+    int getLongestPalindromic(string s,int slen, int l, int r) {
+        while(l>=0&&r<slen&&s[l]==s[r]) {
+            l--;
+            r++;
+        }
+        l++;
+        r--;
+        return r-l+1;
+    }
+};
