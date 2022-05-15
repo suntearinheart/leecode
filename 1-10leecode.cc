@@ -291,3 +291,70 @@ public:
         
     }
 };
+
+https://leetcode.com/problems/string-to-integer-atoi/submissions/
+class Solution {
+public:
+    int myAtoi(string s) {
+        int index = 0;
+        int neg = 0;
+        int comed = 0;
+        while (s[index] != 0) {
+            if (s[index] == ' ') {
+               if (comed)
+                    return 0;
+              index++;
+              continue;
+            } else if ( s[index] == '-') {
+                  if (comed)
+                    return 0;
+                comed = 1;
+                neg = 1;
+            } else if ( s[index] == '+') {
+                  if (comed)
+                    return 0;
+                comed = 1;
+                neg = 0;
+            } else {
+                // break
+                break;
+            }
+            index++;
+        }
+        while (s[index] != 0) {
+            if (s[index] == '0') {
+              index++;
+              continue;
+            } else {
+                // break
+                break;
+            }
+        }   
+        int ret = 0;
+        while (s[index] != 0) {
+            if ((s[index] - '0') >=0 &&((s[index] - '0')<=9)) {
+               if ((ret > INT_MAX/10)||((ret == INT_MAX/10)&&((s[index] - '0')>7))) {
+                       return INT_MAX;      
+               }               
+
+               if ((ret < INT_MIN/10)||((ret == INT_MIN/10)&&((s[index] - '0')>8))) {
+                       return INT_MIN;      
+               }          
+                if (neg == 1) {
+                    ret = ret*10 -  (s[index] - '0');
+                } else {
+                    ret = ret*10 +  (s[index] - '0');
+                }
+        
+              index++;
+              continue;
+            } else {
+                // break
+                break;
+            }
+        }
+        std::cout << "ddddddreg" << neg << std::endl;
+        return ret;
+        
+    }
+};
