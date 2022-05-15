@@ -358,3 +358,30 @@ public:
         
     }
 };
+
+https://leetcode.com/problems/palindrome-number/submissions/
+
+class Solution {
+public:
+    bool isPalindrome(int x) {
+        if (x < 0)
+            return false;
+        if (x == 0)
+            return true;
+        int pre = x;
+        int64_t paliret = 0;
+        while(true) {
+            int mod1 = x%10;
+            x = x/10;
+            if(x) {
+               paliret =  (paliret + mod1)*10;
+            } else {
+               paliret = paliret + mod1;
+               if (paliret == pre)
+                   return true;
+                else 
+                   return false;
+            }        
+        }
+    }
+};
