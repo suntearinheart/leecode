@@ -590,3 +590,61 @@ public:
         
     }
 };
+
+https://leetcode.com/problems/3sum/
+
+1.  big(o3)
+class Solution {
+public:
+    vector<vector<int>> threeSum(vector<int>& nums) {
+        vector<vector<int>>  tt;
+        
+        for(int i=0;i<nums.size();i++) {
+            for (int j = i; j<nums.size();j++) {
+                for (int k=j;k<nums.size();k++) {
+                    if((i!=j)&&(k!=j)&&(nums[i]+nums[j]+nums[k] == 0)){
+                        
+                        vector<int> tt1 = {nums[i],nums[j],nums[k]};
+                        sort(tt1.begin(), tt1.end());
+                        if(std::find(tt.begin(), tt.end(), tt1) == tt.end())
+                            tt.push_back(tt1);
+                    }
+                }
+            }
+        }
+        return tt;
+    }
+};
+// sort -> target -> 2 point -> pass duplicate -> append
+class Solution {
+public:
+vector<vector<int>> threeSum(vector<int>& nums) {
+	vector<vector<int>> sol;
+	sort(nums.begin(), nums.end());
+	for(int i=0; i<nums.size(); i++){
+		int target = 0 - nums[i];
+		int left = i + 1;
+		int right = nums.size() - 1;
+		while(left < right){
+			int sum = nums[left] + nums[right];
+
+			if(sum < target){
+				left++;
+			}
+			else if(sum > target){
+				right--;
+			}
+			else{
+				vector<int> tmp = {nums[i], nums[left], nums[right]};
+				sol.push_back(tmp);
+
+				while(left < right && nums[left] == tmp[1]) left++;
+				while(left > right && nums[right] == tmp[2]) right++;
+			}
+		}
+		while (i < nums.size()-1 && nums[i] == nums[i+1]) i++;
+	}
+
+	return sol;
+}
+};
