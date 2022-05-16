@@ -648,3 +648,78 @@ vector<vector<int>> threeSum(vector<int>& nums) {
 	return sol;
 }
 };
+
+https://leetcode.com/problems/3sum-closest/submissions/
+
+class Solution {
+public:
+    int threeSumClosest(vector<int>& nums, int target) {
+        // sort the nums
+        sort(nums.begin(), nums.end());
+        // 
+        int index = 0;
+        int minvalue = INT_MAX;
+        int last = 0;
+        while(index < (nums.size() -2)){
+            int l = index+1;
+            int r = nums.size() -1;
+            int ltarget = target - nums[index];
+            while(l<r) {
+                if (nums[l]+nums[r] > ltarget) {
+                    int pre = minvalue;
+                    minvalue = min(minvalue,nums[l]+nums[r]-ltarget);
+                    if (pre != minvalue)
+                        last = 1;
+                    r--;
+                } else if (nums[l]+nums[r] < ltarget) {
+                    int pre = minvalue;
+                    minvalue = min(minvalue,ltarget- nums[l]-nums[r]);
+                    if (pre != minvalue)
+                        last = 2;
+                    l++;
+                } else {
+                    return target;
+                } 
+            }
+            index++;   
+        }
+        if (last == 1) {
+            return minvalue + target;
+        } else if (last ==2) {
+           return target - minvalue ; 
+        } else {
+            return 0;
+        }
+        
+    }
+};
+
+
+https://leetcode.com/problems/letter-combinations-of-a-phone-number/submissions/
+
+class Solution {
+public:
+    vector<string> letterCombinations(string digits) {
+        if(digits == "") return {};
+        string comb = "";
+        int index = 0;
+        helper(comb, digits, index);
+        return res;
+    }
+    
+    void helper(string& comb, string& digits, int index){
+        if(index == digits.size()){
+            res.push_back(comb);
+            return;
+        }
+        
+        string letters = mapping[digits[index] - '0'];
+        for(auto &c: letters){
+            comb += c;
+            helper(comb, digits, index+1);
+            comb.pop_back();
+        }
+    }
+private:
+    vector<string> mapping = {"", "", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"}, res;
+};
